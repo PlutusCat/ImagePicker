@@ -15,7 +15,6 @@ class ImageCollectionCell: UICollectionViewCell {
     //显示选中状态的图标
     var selectedIcon: UIImageView!
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -40,9 +39,8 @@ class ImageCollectionCell: UICollectionViewCell {
         selectedIcon.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
     }
 
-    //播放动画，是否选中的图标改变时使用
     func playAnimate() {
-        //图标先缩小，再放大
+
         UIView.animateKeyframes(withDuration: 0.4, delay: 0, options: .allowUserInteraction, animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.2,
                                animations: {
@@ -54,9 +52,7 @@ class ImageCollectionCell: UICollectionViewCell {
             })
         }, completion: nil)
     }
-
-
-    //设置是否选中
+    
     open override var isSelected: Bool {
         didSet {
             if isSelected {
