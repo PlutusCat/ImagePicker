@@ -21,7 +21,7 @@ class ImagePickerController: UIViewController {
     var albumTableView: UITableView!
     var items: [ImageAlbumItem] = []
     /// 最大选择数，默认9张
-    var maxSelected: Int = 9
+    var maxSelected: Int = Int.max
     /// 选择完成回调
     var completeHandler:((_ assets: [PHAsset])->())?
 
@@ -47,13 +47,13 @@ class ImagePickerController: UIViewController {
     }
 
     func getFetvhOpiton() {
-        //申请权限
+        //权限
         PHPhotoLibrary.requestAuthorization({ (status) in
             if status != .authorized {
                 return
             }
 
-            // 列出所有系统的智能相册
+            // 列出所有系统的相册
             let smartOptions = PHFetchOptions()
             let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum,
                                                                       subtype: .albumRegular,
@@ -70,7 +70,6 @@ class ImagePickerController: UIViewController {
                 return item1.fetchResult.count > item2.fetchResult.count
             }
 
-            //异步加载表格数据,需要在主线程中调用reloadData() 方法
             DispatchQueue.main.async{
                 self.albumTableView?.reloadData()
 
@@ -149,15 +148,10 @@ class ImagePickerController: UIViewController {
     func perpareCustom(cell: ImagePickerCell?) {
 
         let imageCollectionVC = ImageCollectionController()
-        //设置回调函数
         imageCollectionVC.completeHandler = completeHandler
-        //设置标题
         imageCollectionVC.title = cell?.titleLabel.text
-        //设置最多可选图片数量
         imageCollectionVC.maxSelected = maxSelected
         guard let indexPath = albumTableView.indexPath(for: cell!) else { return }
-
-        //传递相簿内的图片资源
         imageCollectionVC.assetsFetchResults = items[indexPath.row].fetchResult
 
         navigationController?.pushViewController(imageCollectionVC, animated: true)
@@ -211,7 +205,6 @@ extension ImagePickerController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension UIViewController {
-    //HGImagePicker提供给外部调用的接口，同于显示图片选择页面
     func presentImagePicker(maxSelected:Int = 9, completeHandler:((_ assets:[PHAsset])->())?) -> ImagePickerController?{
 
             let vc = ImagePickerController()

@@ -36,7 +36,6 @@ class ImageCollectionController: UIViewController {
         view.backgroundColor = .white
         automaticallyAdjustsScrollViewInsets = true
 
-        //添加导航栏右侧的取消按钮
         let rightItem = UIBarButtonItem(title: "取消", style: .plain,
                                         target: self, action: #selector(rightItemAction))
         navigationItem.rightBarButtonItem = rightItem
@@ -48,7 +47,6 @@ class ImageCollectionController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        //根据单元格的尺寸计算我们需要的缩略图大小
         let scale = UIScreen.main.scale
         let cellSize = (collectionView.collectionViewLayout as!
             UICollectionViewFlowLayout).itemSize
@@ -84,7 +82,6 @@ class ImageCollectionController: UIViewController {
         toolBar = UIToolbar(frame: barFrame)
         view.addSubview(toolBar)
 
-        //添加下方工具栏的完成按钮
         completeButton = ImageCompleteButton()
         completeButton.addTarget(target: self, action: #selector(finishSelect))
         completeButton.center = CGPoint(x: UIScreen.main.bounds.width - 50, y: 22)
