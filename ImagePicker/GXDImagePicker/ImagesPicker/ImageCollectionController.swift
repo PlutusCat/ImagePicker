@@ -123,6 +123,10 @@ class ImageCollectionController: UIViewController {
 
     }
 
+    deinit {
+        print("deinit == ImageCollectionController")
+    }
+
 
 }
 

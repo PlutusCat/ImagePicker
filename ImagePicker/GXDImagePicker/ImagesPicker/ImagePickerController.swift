@@ -30,10 +30,8 @@ class ImagePickerController: UIViewController {
         title = "照片"
         view.backgroundColor = .white
 
-        if isPresentEnter() {
-            let rightItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(rightItemAction))
-            navigationItem.rightBarButtonItem = rightItem
-        }
+        let leftItem = UIBarButtonItem(title: "关闭", style: .plain, target: self, action: #selector(leftItemAction))
+        navigationItem.leftBarButtonItem = leftItem
 
         createSubviews()
         getFetvhOpiton()
@@ -88,7 +86,7 @@ class ImagePickerController: UIViewController {
         })
     }
 
-    func rightItemAction() {
+    func leftItemAction() {
 
         dismiss(animated: true, completion: nil)
 
@@ -166,16 +164,19 @@ class ImagePickerController: UIViewController {
     }
 
 
-    func isPresentEnter() -> Bool {
-        guard presentingViewController == nil  else { return false }
-        do { return false }
-    }
+//    func isPresentEnter() -> Bool {
+//        guard presentingViewController == nil  else { return false }
+//        do { return false }
+//    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    deinit {
+        print("deinit == ImagePickerController")
+    }
 
 }
 
